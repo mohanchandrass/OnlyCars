@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Model Showcase</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Set background color to black */
+            color: #fff; /* Set text color to white */
+        }
+
+        header {            background: linear-gradient(to bottom, #222, #000);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        header img {
+            max-height: 110px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .header-right {
+            position: absolute;
+            top: 50px;
+            right: 16px;
+            font-size: 18px;
+        }
+
+        .brand-container, .subscribe-container, .about-container, .account-container {
+            position: relative;
+            display: flex;
+            margin-left: 20px;
+        }
+
+        .brand-text, .subscribe-text, .about-text, .account-text {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, sans-serif;
+            color: #b84545;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .brand-options, .subscribe-options {
+            font-family: 'Arial', sans-serif;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(to bottom, #222, #000);
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .brand-options a, .subscribe-options a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .brand-options a:hover, .subscribe-options a:hover {
+            color: #ffcc00;
+        }
+
+        .brand-container:hover .brand-options, .subscribe-container:hover .subscribe-options {
+            display: flex;
+        }
+
+        .account-container:hover .account-options {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(to bottom, #222, #000);
+            padding: 15px;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .account-container:hover .account-options a {
+            display: block;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .account-container:hover .account-options a:hover {
+            background-color: #222;
+        }
+
+        .account-options {
+            font-family: 'Arial', sans-serif;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #333;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            text-decoration: none;
+            z-index: 1;
+        }
+
+        .account-logo {
+            max-height: 60px;
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+        .account-page-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .account-page {
+            text-align: center;
+            color: #fff;
+            background-image: url('.jpg'); /* Add your background image URL */
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 300px; /* Set the width of the container */
+            border: 2px solid #fff; /* Add border */
+        }
+
+        .account-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .account-form label {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .account-form input {
+            padding: 8px;
+            margin-bottom: 20px;
+            width: 80%;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .account-form button {
+            padding: 10px 20px;
+            background-color: #b84545;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .toggle-link {
+            cursor: pointer;
+            color: #b84545;
+            margin-top: 10px;
+        }
+  
+
+  
+    
+
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav ul li {
+        margin-right: 20px;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+        transition: color 0.3s ease-in-out;
+    }
+
+    nav ul li a:hover {
+        color: #4CAF50; /* Change color on hover */
+    }
+
+        section {
+            padding: 20px;
+            background-color: #111; /* Dark gray background for sections */
+            margin: 0.2px;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .car-container {
+            
+        text-decoration: none;
+        color: #d15656;
+        font-weight: bold;
+        font-size: 16px;
+        transition: color 0.3s ease-in-out;
+            margin-bottom: 20px;
+            border: 1px solid #444; /* Border for the container */
+            border-radius: 5px;
+            overflow: hidden; /* Clear floats within the container */
+        }
+
+        .car-model {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .car-model img {
+            
+        
+            max-width: 40%;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px; /* Add margin to the right of the image */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Add a subtle white box shadow */
+        }
+
+        .car-details {
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+        transition: color 0.3s ease-in-out;
+            flex: 1; /* Take up remaining space next to the image */
+        }
+
+        .modifications {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #888; /* Color for modifications text */
+        }
+
+        .modification-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .tick-box {
+            margin-right: 5px;
+        }
+
+        .color-picker {
+            margin-left: 10px;
+        }
+
+        .car-color {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .car-color label {
+            margin-right: 10px;
+        }
+
+        .car-color-picker {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sell-price-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        
+        
+       
+            <a href="Onlycars.html">
+                <img src="onlycar.png" alt="Logo">
+            </a>
+            <div class="brand-container">
+                <a href="practice.html" class="brand-text">Brands</a>
+                <div class="brand-options">
+                    <a href="lamborghini.html">Lamborghini</a>
+                    <a href="ferrari.html">Ferrari</a>
+                    <a href="porsche.html">Porsche</a>
+                    <a href="bmw.html">BMW</a>
+                    <a href="mercedes.html">Mercedes</a>
+                    <a href="audi.html">Audi</a>
+                </div>
+            </div>
+            <a href="practice.html" class="about-text" style="margin-left: 20px;">About</a>
+            <div class="subscribe-container">
+                <a href="subscriptions.html" class="subscribe-text">Subscriptions</a>
+            </div>
+            <div class="header-right">
+                <div class="account-container">
+                    <img src="account_icon3.png" alt="Account Logo" class="account-logo">
+                    <div class="account-options">
+                        <a href="accounts.html">Login/Signup</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </header>
+
+    <section id="home">
+        <h2></h2>
+        <!-- Add content for the home page here -->
+    </section>
+
+    <section id="models">
+        <h2><i>FERRARI</i></h2>
+        <!-- Add content for car models here -->
+        <!-- You can include images, descriptions, etc. -->
+
+        <div class="car-container">
+           
+            <div class="car-model">
+                
+                <img src="FERRARI LAF.jpg" alt="Model 1">
+                <a href="FERRARI LAFERRARI.html" style="color: #ffcc00;text-decoration: none;"><div class="car-details">
+                    <h3>FERRARI LAFERRARI</h3></a>
+                    <p>MODEL2018<br>BASE PRICE=854600<br>MODEL COLOUR = RED </p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="car-container">
+            <div class="car-model">
+
+                <img src="FERRARI SF90.jpg" alt="Model 2"></a>
+                <a href="FERRARI SF90.html" style="color: #ffcc00;text-decoration: none;"><div class="car-details">
+                    <h3>FERRARI SF90</h3></a>
+                    <p>MODEL 2023 <br> BASE PRICE = 869000<br>MODEL COLOR=YELLOW</p>
+                </div>
+            </div>
+        </div>
+        <div class="car-container">
+            <div class="car-model">
+                <img src="FERRARI 812.jpg" alt="Model 3">
+                <a href="FERRARI 812.html" style="color: #ffcc00;text-decoration: none;" ><div class="car-details">
+                    <h3>FERRARI 812 </h3></a>
+                    <p>MODEL 2019<br>BASE PRICE=650870<BR>MODEl COLOR =RED</p>
+                    
+            </div>
+        </div>
+        <footer>
+            <div class="footer-content">
+                <div class="copyright">
+                    <p>&copy; 2023 OnlyCars. All rights reserved.</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#" target="_blank" class="social-icon"><img src="facebook_icon2.png" alt="Facebook"></a>
+                    <a href="#" target="_blank" class="social-icon"><img src="instagram_icon2.png" alt="Instagram"></a>
+                    <a href="#" target="_blank" class="social-icon"><img src="x_icon2.png" alt="X"></a>
+                    <a href="#" target="_blank" class="social-icon"><img src="threads_icon.png" alt="Threads"></a>
+                    <!-- Add more social media icons as needed -->
+                </div>
+            </div>
+        
+            <div class="legal-information">
+                <p>The consumption and emissions values on this website are based on your geographical IP. This value might be unrealistic if you navigate using a VPN or if the position of your Internet provider is imprecise. If you believe you are incorrectly geolocalized, contact your dealer to get valid consumption and emissions information in your area.</p>
+        
+                <p>Copyright &copy; 2023 OnlyCars the Premium car Modification Company S.p.A., a sole shareholder company part of Automobili Group.</p>
+                <p>All rights reserved. VAT no. IT 9876543210</p>
+        
+                <p>WARNING ABOUT ILLEGAL OFFERS OF ALLEGED SHARES OF OnlyCars S.P.A.</p>
+                <p>OnlyCars S.p.A. has received notice that several third parties across different countries are allegedly offering shares in OnlyCars S.p.A. These offers are unlawful and originate neither from Volkswagen Aktiengesellschaft nor from any of its subsidiaries.</p>
+                <p>This website is for educational purposes only. It is not intended to infringe on any copyright or intellectual property rights.</p>
+            </div>
+        </footer>
+        
+        <style>
+            footer {
+                background: #111; /* Set to glossy black */
+                color: #fff;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+                z-index: 2;
+            }
+        
+            .footer-content {
+                display: flex;
+                justify-content: space-between;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        
+            .legal-information {
+                margin-top: 20px;
+            }
+        
+            .social-icons {
+                display: flex;
+                justify-content: center;
+            }
+        
+            .social-icon {
+                margin: 0 10px;
+            }
+        
+            .social-icon img {
+                width: 30px; /* Adjust the size of the social media icons */
+            }
+        </style>
+
+        <script>
+            function calculateTotal(model) {
+                const checkboxes = document.querySelectorAll(`input[type="checkbox"][data-price][data-model="${model}"]:checked`);
+                const colorPicker = document.querySelector(`.car-color-picker[data-model="${model}"]`);
+
+                let total = 0;
+
+                checkboxes.forEach((checkbox) => {
+                    total += parseInt(checkbox.getAttribute('data-price'));
+                });
+
+                document.getElementById(`total${model.charAt(model

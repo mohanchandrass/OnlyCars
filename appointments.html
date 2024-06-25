@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyCars - Appointments</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #222, #000);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        header img {
+            max-height: 110px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .brand-container {
+            position: relative;
+            display: flex;
+        }
+
+        .brand-text {
+            font-family: 'Arial', sans-serif;
+            color: #b84545;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .brand-options {
+            font-family: 'Arial', sans-serif;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #333;
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .brand-options a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .brand-options a:hover {
+            color: #ffcc00;
+        }
+
+        .brand-container:hover .brand-options {
+            display: flex;
+        }
+
+        .appointment-form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 8px;
+        }
+
+        .appointment-form h2 {
+            color: #b84545;
+        }
+
+        .appointment-form label {
+            display: block;
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        .appointment-form input,
+        .appointment-form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .appointment-form input[type="submit"] {
+            background-color: #b84545;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="home.html">
+            <img src="onlycar.png" alt="Logo">
+        </a>
+        <div class="brand-container">
+            <div class="brand-text">Brands</div>
+            <div class="brand-options">
+                <a href="#">Lamborghini</a>
+                <a href="#">Ferrari</a>
+                <a href="#">Porsche</a>
+                <a href="#">BMW</a>
+                <a href="#">Mercedes</a>
+                <a href="#">Audi</a>
+            </div>
+        </div>
+        <div class="brand-text">About</div>
+        <div class="brand-text"><a href="appointments.html">Book an Appointment</a></div>
+    </header>
+
+    <div class="appointment-form">
+        <h2>Book an Appointment</h2>
+        <form action="submit_appointment.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="car">Preferred Car Brand:</label>
+            <select id="car" name="car">
+                <option value="lamborghini">Lamborghini</option>
+                <option value="ferrari">Ferrari</option>
+                <option value="porsche">Porsche</option>
+                <option value="bmw">BMW</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+
+            <input type="submit" value="Submit Appointment">
+        </form>
+    </div>
+
+    <!-- Rest of your appointment page content goes here -->
+
+    <script>
+        // You can add any specific JavaScript for the appointment page here
+    </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyCars</title>
+    <link rel="icon" href="onlycar.png" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(to bottom, #222, #000);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        header img {
+            max-height: 110px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .header-right {
+            position: absolute;
+            top: 50px;
+            right: 16px;
+            font-size: 18px;
+        }
+
+        .brand-container, .subscribe-container, .about-container, .account-container {
+            position: relative;
+            display: flex;
+            margin-left: 20px;
+        }
+
+        .brand-text, .subscribe-text, .about-text, .account-text {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, sans-serif;
+            color: #b84545;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .brand-options, .subscribe-options {
+            font-family: 'Arial', sans-serif;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(to bottom, #222, #000);
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .brand-options a, .subscribe-options a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .brand-options a:hover, .subscribe-options a:hover {
+            color: #ffcc00;
+        }
+
+        .brand-container:hover .brand-options, .subscribe-container:hover .subscribe-options {
+            display: flex;
+        }
+
+        .account-container:hover .account-options {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(to bottom, #222, #000);
+            padding: 15px;
+            flex-direction: column;
+            z-index: 1;
+        }
+
+        .account-container:hover .account-options a {
+            display: block;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .account-container:hover .account-options a:hover {
+            background-color: #222;
+        }
+
+        .account-options {
+            font-family: 'Arial', sans-serif;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #333;
+            padding: 15px;
+            display: none;
+            flex-direction: column;
+            text-decoration: none;
+            z-index: 1;
+        }
+
+        .account-logo {
+            max-height: 60px; /* Increase the max height of the account logo */
+            margin-left: auto; /* Move the account logo to the right */
+            cursor: pointer;
+        }
+
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+            margin-top: 20px; /* Add space above the car boxes */
+        }
+
+        .car-container 
+        {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .car-box 
+        {
+            width: 100%;
+            height: 200px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .car-logo 
+        {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .car-box:hover .car-logo
+         {
+            transform: scale(1.1);
+        }
+
+        .custom-section
+         {
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            height: 500px; /* Adjust the height as needed */
+        }
+
+        .custom-content img 
+        {
+            width: 100%;
+            height: auto;
+            max-height: 100%; /* Ensure the image won't exceed the size of the section */
+            object-fit: cover;
+            object-position: center top; /* Adjust the position of the image if needed */
+        }
+
+        .custom-heading 
+        {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            font-weight: bold; /* Set the text to bold */
+            color: #000000; /* Set the text color to white */
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif; /* Add your preferred stylish font */
+            text-align: right;
+        }
+
+        #about 
+        {
+            color: #ccc; /* Adjust the text color for a subtle appearance */
+            padding: 20px;
+            font-size: 16px; /* Adjust the font size to your preference */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Add your preferred font family */
+            line-height: 1.6;
+            opacity: 0.9; /* Adjust the opacity for a subtle effect */
+        }
+
+        #about h2
+         {
+            font-size: 30px; /* Adjust the heading font size */
+            color: #b84545; /* Heading color */
+        }
+
+        #about p 
+        {
+            margin-top: 10px; /* Add space between heading and paragraph */
+        }
+
+        #about h2 
+        {
+            font-size: 36px; /* Adjust the heading font size */
+            color: #b84545; /* Heading color */
+        }
+
+        #about p 
+        {
+            margin-top: 10px; /* Add space between heading and paragraph */
+        }
+        .image-overlay-section 
+        {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.overlay-item 
+{
+    text-align: center; /* Center the text below the image */
+    width: 30%; /* Adjust the width as needed */
+}
+
+.overlay-item img 
+{
+    width: 100%;
+    height: 100%; /* Set a fixed height to ensure uniformity */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire box */
+}
+
+.overlay-text 
+{
+    color: #ffcc00;
+    font-size: 20px;
+    margin-top: 10px; /* Adjust the space between image and text */
+    font-style: italic;
+}
+
+
+
+        .contact-section {
+            margin-top: 40px; /* Adjust the top margin as needed */
+            padding: 20px;
+            background-color: #000; /* Solid black background color */
+            color: #fff; /* White text color */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+
+        .contact-section h2 {
+            font-size: 24px;
+            color: #b84545; /* White text color */
+        }
+
+        .contact-section p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .contact-section a {
+            color: #ffcc00; /* Yellow link color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">
+            <img src="onlycar.png" alt="Logo">
+        </a>
+        <div class="brand-container">
+            <a href="index.html" class="brand-text">Brands</a>
+            <div class="brand-options">
+                <a href="lamborghini.html">Lamborghini</a>
+                <a href="ferrari.html">Ferrari</a>
+                <a href="porsche.html">Porsche</a>
+                <a href="bmw.html">BMW</a>
+                <a href="mercedes.html">Mercedes</a>
+                <a href="audi.html">Audi</a>
+            </div>
+        </div>
+        <a href="#about" class="about-text" style="margin-left: 20px;">About</a>
+        <div class="subscribe-container">
+            <a href="subscriptions.html" class="subscribe-text">Subscriptions</a>
+        </div>
+        <div class="header-right">
+            <div class="account-container">
+                <!-- Replace "account_icon.png" with your actual file path or URL -->
+                <img src="account_icon3.png" alt="Account Logo" class="account-logo">
+                <div class="account-options">
+                    <a href="accounts.html">Login/Signup</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Slideshow Container -->
+    <div class="slideshow-container">
+        <!-- Add your slideshow content here -->
+        <!-- Example: -->
+        <div class="mySlides">
+            <img src="lamborghini1.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides">
+            <img src="lamborghini2.jpg" style="width:100%">
+        </div>
+        <div class="mySlides">
+            <img src="lamborghini3.jpg" style="width:100%">
+        </div>
+
+        <!-- Add more slides as needed -->
+    </div>
+
+    <div class="car-container">
+        <div class="car-box">
+            <a href="#"> 
+                <img src="lamborghini.jpg" alt="Lamborghini Logo" class="car-logo">
+            </a>
+        </div>
+        <div class="car-box">
+            <a href="#">
+                <img src="ferrari.jpg" alt="Ferrari Logo" class="car-logo">
+            </a>
+        </div>
+        <div class="car-box">
+            <a href="#">
+                <img src="bmw.jpg" alt="BMW Logo" class="car-logo">
+            </a>
+        </div>
+        <div class="car-box">
+            <a href="#">
+                <img src="porsche.png" alt="Porsche Logo" class="car-logo">
+            </a>
+        </div>
+        
+        <div class="car-box">
+            <a href="#">
+                <img src="mercedes.png" alt="Mercedes Logo" class="car-logo">
+            </a>
+        </div>
+        <div class="car-box">
+            <a href="#">
+                <img src="audi.jpg" alt="Audi Logo" class="car-logo">
+            </a>
+        </div>
+    </div>
+    <div class="about-text">
+        <h2 style="margin-left: 20px; font-weight: bold;">Experience The Beauty</h2>
+    </div>
+    <div class="image-overlay-section">
+        
+        <div class="overlay-item">
+            <img src="tuning.jpg" alt="Image 1">
+            <div class="overlay-text">TUNING</div>
+        </div>
+        <div class="overlay-item">
+            <img src="paintjob.jpg" alt="Image 2">
+            <div class="overlay-text">EXTERIOR</div>
+        </div>
+        <div class="overlay-item">
+            <img src="interior.jpg" alt="Image 3">
+            <div class="overlay-text">INTERIOR</div>
+        </div>
+    </div>
+    
+    
+    
+        
+    <!-- Add breaks between paragraphs -->
+    <div id="about" class="about-text">
+        <h2>About OnlyCars</h2>
+        <p>Welcome to OnlyCars, where automotive enthusiasts and aficionados converge to embark on a thrilling journey through the realm of the world's most prestigious automobile brands.</p>
+        
+        <p>At OnlyCars, we invite you to immerse yourself in the unparalleled experience of exploring the latest and most exquisite car models, each boasting breathtaking designs and incorporating cutting-edge technology that pushes the boundaries of automotive innovation.</p>
+        
+        <p>Dedicated to the artistry and engineering excellence of the automotive world, OnlyCars is more than just a platform; it's a passionate community that celebrates the love for cars.</p>
+
+        <p>Our commitment is to share this fervor with you, providing an ultimate destination where you can indulge in the sheer joy of discovering and appreciating the finest automobiles the industry has to offer.</p>
+
+        <p>So, buckle up and get ready to traverse the exciting landscape of automotive excellence with us. Whether you're a seasoned car enthusiast or a newcomer to the world of automobiles, OnlyCars is here to guide you through a captivating exploration, ensuring you don't just witness the evolution of automotive technology but become an integral part of the exhilarating ride.</p>
+
+        <p>Welcome to OnlyCars, where the love for cars knows no bounds, and the journey is as thrilling as the destination!</p>
+    </div>
+
+    <div>
+        <section id="custom-section" class="custom-section">
+            <div class="custom-content">
+                <!-- Image goes here -->
+                <img src="porsche1.png" alt="Your Image">
+            </div>
+            <!-- Heading goes here -->
+            <div class="custom-heading">
+                <h1>STYLE,TUNE,LIVE.</h1>
+            </div>
+        </section>
+    </div>
+
+    
+
+    <div class="contact-section">
+        <h2>Contact</h2>
+        <p>The company provides all the available and upcoming newsletters about the Modification and new Styles available and is open to the public. To request an appointment, please describe your request and the intended use of your automobile.</p>
+        
+        <p>Contact us now: <a href="mailto:onlycarsmodification@gmail.com">onlycarsmodification@gmail.com</a></p>
+
+        <p>The company archive contains the production files for almost every car built. Information on your production car can be found here: <a href="https://example.com">Find out more</a></p>
+    </div>
+
+    <!-- Rest of your website content goes here -->
+
+    <script>
+        // You can add a JavaScript script here to handle the slideshow functionality
+        // Example:
+        var slideIndex = 0;
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Change slide every 2 seconds
+        }
+
+        showSlides();
+    </script>
+    <!-- Rest of your website content goes here -->
+
+
+<footer>
+    <div class="footer-content">
+        <div class="copyright">
+            <p>&copy; 2023 OnlyCars. All rights reserved.</p>
+        </div>
+        <div class="social-icons">
+            <a href="#" target="_blank" class="social-icon"><img src="facebook_icon2.png" alt="Facebook"></a>
+            <a href="#" target="_blank" class="social-icon"><img src="instagram_icon2.png" alt="Instagram"></a>
+            <a href="#" target="_blank" class="social-icon"><img src="x_icon2.png" alt="X"></a>
+            <a href="#" target="_blank" class="social-icon"><img src="threads_icon.png" alt="Threads"></a>
+            <!-- Add more social media icons as needed -->
+        </div>
+    </div>
+
+    <div class="legal-information">
+        <p>The consumption and emissions values on this website are based on your geographical IP. This value might be unrealistic if you navigate using a VPN or if the position of your Internet provider is imprecise. If you believe you are incorrectly geolocalized, contact your dealer to get valid consumption and emissions information in your area.</p>
+
+        <p>Copyright &copy; 2023 OnlyCars the Premium car Modification Company S.p.A., a sole shareholder company part of Automobili Group.</p>
+        <p>All rights reserved. VAT no. IT 9876543210</p>
+
+        <p>WARNING ABOUT ILLEGAL OFFERS OF ALLEGED SHARES OF OnlyCars S.P.A.</p>
+        <p>OnlyCars S.p.A. has received notice that several third parties across different countries are allegedly offering shares in OnlyCars S.p.A. These offers are unlawful and originate neither from Volkswagen Aktiengesellschaft nor from any of its subsidiaries.</p>
+        <p>This website is for educational purposes only. It is not intended to infringe on any copyright or intellectual property rights.</p>
+    </div>
+</footer>
+
+<style>
+    footer {
+        background: #111; /* Set to glossy black */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        z-index: 2;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .legal-information {
+        margin-top: 20px;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+    }
+
+    .social-icon {
+        margin: 0 10px;
+    }
+
+    .social-icon img {
+        width: 30px; /* Adjust the size of the social media icons */
+    }
+</style>
+
+</body>
+</html>
+
+</body>
+</html>

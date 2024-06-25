@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Modification Showcase</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .car-container {
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .car-model {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .car-model img {
+            max-width: 40%;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .car-details {
+            flex: 1;
+        }
+
+        .modifications {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #888;
+        }
+
+        .modification-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .tick-box {
+            margin-right: 5px;
+        }
+
+        .sell-price-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #totalCost {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        #viewReceiptBtn {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Car Modification Showcase</h1>
+    </header>
+
+    <section>
+        <div class="car-container">
+            <div class="car-model">
+                <img src="lambo 3.jpeg" alt="Car Model">
+                <div class="car-details">
+                    <h2>huracan tecnica</h2>
+                    <ul class="modifications">
+                        <li class="modification-item">
+                            <input type="checkbox" class="tick-box" data-price="50000" onchange="calculateTotal()"> turbo
+                        </li>
+                        <li class="modification-item">
+                            <input type="checkbox" class="tick-box" data-price="70000" onchange="calculateTotal()"> twin turbo
+                        </li>
+                       
+                        <li class="modification-item">
+                            <input type="checkbox" class="tick-box" data-price="90000" onchange="calculateTotal()"> supercharge
+                        </li>
+                        <li class="modification-item">
+                            <input type="checkbox" class="tick-box" data-price="20900" onchange="calculateTotal()"> exhaust tuned 1
+                        </li>
+                        <li class="modification-item">
+                            <input type="checkbox" class="tick-box" data-price="25465" onchange="calculateTotal()"> exhaust tuned 2
+                        </li>
+                        <li class="modification-item">
+                            <input type="checkbox" class="tick-box" data-price="15000" onchange="calculateTotal()"> spoiler
+                        </li>
+                       <li><input type="color" class="color-selector" id="colorPicker2" value="#000000"> car colour</li>
+                    </ul>
+                    <div id="totalCost">Total Cost: $0</div>
+                    <button id="viewReceiptBtn" onclick="viewReceipt()">View Receipt</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-price]');
+            let total = 0;
+
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.getAttribute('data-price'));
+                }
+            });
+
+            document.getElementById('totalCost').textContent = `Total Cost: $${total}`;
+        }
+
+        function viewReceipt() {
+            const selectedModifications = Array.from(document.querySelectorAll('input[type="checkbox"][data-price]:checked'))
+                .map(checkbox => checkbox.parentNode.textContent.trim());
+
+            const totalCost = document.getElementById('totalCost').textContent;
+
+            alert(`Receipt:\n\nSelected Modifications:\n${selectedModifications.join('\n')}\n\n${totalCost}`);
+        }
+    </script>
+</body>
+<footer>
+    <div class="footer-content">
+        <div class="copyright">
+            <p>&copy; 2023 OnlyCars. All rights reserved.</p>
+        </div>
+        <div class="social-icons">
+            <a href="#" target="_blank" class="social-icon"><img src="facebook_icon2.png" alt="Facebook"></a>
+            <a href="#" target="_blank" class="social-icon"><img src="instagram_icon2.png" alt="Instagram"></a>
+            <a href="#" target="_blank" class="social-icon"><img src="x_icon2.png" alt="X"></a>
+            <a href="#" target="_blank" class="social-icon"><img src="threads_icon.png" alt="Threads"></a>
+            <!-- Add more social media icons as needed -->
+        </div>
+    </div>
+
+    <div class="legal-information">
+        <p>The consumption and emissions values on this website are based on your geographical IP. This value might be unrealistic if you navigate using a VPN or if the position of your Internet provider is imprecise. If you believe you are incorrectly geolocalized, contact your dealer to get valid consumption and emissions information in your area.</p>
+
+        <p>Copyright &copy; 2023 OnlyCars the Premium car Modification Company S.p.A., a sole shareholder company part of Automobili Group.</p>
+        <p>All rights reserved. VAT no. IT 9876543210</p>
+
+        <p>WARNING ABOUT ILLEGAL OFFERS OF ALLEGED SHARES OF OnlyCars S.P.A.</p>
+        <p>OnlyCars S.p.A. has received notice that several third parties across different countries are allegedly offering shares in OnlyCars S.p.A. These offers are unlawful and originate neither from Volkswagen Aktiengesellschaft nor from any of its subsidiaries.</p>
+        <p>This website is for educational purposes only. It is not intended to infringe on any copyright or intellectual property rights.</p>
+    </div>
+</footer>
+
+<style>
+    footer {
+        background: #111; /* Set to glossy black */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        z-index: 2;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .legal-information {
+        margin-top: 20px;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+    }
+
+    .social-icon {
+        margin: 0 10px;
+    }
+
+    .social-icon img {
+        width: 30px; /* Adjust the size of the social media icons */
+    }
+</style>
+
+</html>
