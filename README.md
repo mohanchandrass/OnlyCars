@@ -1,6 +1,6 @@
 # OnlyCars
 A Car hypermodification platform.
 Project developed for Web designing course.
-Made by -
-Karthik Prasad M
-
+Made By - 
+Mohan Chandra S S 
+Pratam Rajesh Vernaker
